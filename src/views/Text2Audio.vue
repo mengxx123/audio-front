@@ -62,7 +62,10 @@
         methods: {
             make() {
                 if (!this.text) {
-                    alert('请输入文字')
+                    this.$message({
+                        type: 'danger',
+                        text: '请输入文字'
+                    })
                     return
                 }
                 this.$http.get(`/audio/text2audio?text=${this.text}&volume=${this.volume}&pitch=${this.pitch}&speed=${this.speed}&person=${this.person}`).then(
