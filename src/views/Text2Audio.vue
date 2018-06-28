@@ -23,8 +23,13 @@
         <ui-slider class="slider" v-model="volume" :min="0" :max="9" :step="1" />
         <!-- <ui-text-field v-model.number="speed" label="语速（0-9）" /> -->
         <br>
-        <ui-raised-button label="生成" primary @click="make" />
+        <div class="btns">
+            <ui-raised-button label="生成" primary @click="make" />
+        </div>
         <br>
+        <div class="ui-loading" v-if="loading">
+            <ui-circular-progress :size="24"/>
+        </div>
         <div class="result-box" v-if="result">
             {{ result }}
             <br>
@@ -40,6 +45,7 @@
     export default {
         data () {
             return {
+                loading: false,
                 text: '',
                 volume: 5,
                 pitch: 5,
@@ -68,14 +74,18 @@
                     })
                     return
                 }
+                this.loading = true
+                this.result = null
                 this.$http.get(`/audio/text2audio?text=${this.text}&volume=${this.volume}&pitch=${this.pitch}&speed=${this.speed}&person=${this.person}`).then(
                     response => {
                         let data = response.data
                         console.log(data)
                         this.result = apiDomain + data
+                        this.loading = false
                     },
                     response => {
                         console.log(response)
+                        this.loading = false
                     })
             },
             download() {
@@ -95,5 +105,11 @@
 .slider {
     margin-bottom: 0;
     width: 256px;
+}
+.btns {
+    margin-bottom: 16px;
+}
+.result-box {
+    /* margin-top: 16px; */
 }
 </style>

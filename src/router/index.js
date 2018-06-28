@@ -3,6 +3,8 @@ import Router from 'vue-router'
 
 // const Home = resolve => require(['@/views/Home'], resolve)
 const Text2Audio = resolve => require(['@/views/Text2Audio'], resolve)
+const Audio2Text = resolve => require(['@/views/Audio2Text'], resolve)
+const FormatConvert = resolve => require(['@/views/FormatConvert'], resolve)
 const About = resolve => require(['@/views/About'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
@@ -17,6 +19,14 @@ let routes = [
     {
         path: '/text2audio',
         component: Text2Audio
+    },
+    {
+        path: '/audio2text',
+        component: Audio2Text
+    },
+    {
+        path: '/formatConvert',
+        component: FormatConvert
     },
     {
         path: '/about',
