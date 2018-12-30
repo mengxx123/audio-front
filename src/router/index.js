@@ -1,11 +1,13 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-// const Home = resolve => require(['@/views/Home'], resolve)
+const Home = resolve => require(['@/views/Home'], resolve)
 const Text2Audio = resolve => require(['@/views/Text2Audio'], resolve)
 const Audio2Text = resolve => require(['@/views/Audio2Text'], resolve)
 const FormatConvert = resolve => require(['@/views/FormatConvert'], resolve)
-const About = resolve => require(['@/views/About'], resolve)
+const LyricConvert = resolve => require(['@/views/LyricConvert'], resolve)
+const Player = resolve => require(['@/views/Player'], resolve)
+const Join = resolve => require(['@/views/Join'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -13,8 +15,7 @@ Vue.use(Router)
 let routes = [
     {
         path: '/',
-        redirect: '/text2audio'
-        // component: Home
+        component: Home
     },
     {
         path: '/text2audio',
@@ -29,8 +30,20 @@ let routes = [
         component: FormatConvert
     },
     {
-        path: '/about',
-        component: About
+        path: '/join',
+        component: Join
+    },
+    {
+        path: '/lyric/convert',
+        component: LyricConvert
+    },
+    {
+        path: '/viewer',
+        component: Player
+    },
+    {
+        path: '/viewer',
+        component: Player
     },
     {
         path: '*',

@@ -39,7 +39,7 @@
                 person: 0,
                 result: '',
                 allFormats: ['mp3', 'wav', 'amr'],
-                formats: ['mp3', 'wav', 'amr'],
+                formats: ['mp3', 'wav', 'amr', 'pcm'],
                 page: {
                     menu: [
                         {
