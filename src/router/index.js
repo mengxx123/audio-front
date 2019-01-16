@@ -8,6 +8,7 @@ const FormatConvert = resolve => require(['@/views/FormatConvert'], resolve)
 const LyricConvert = resolve => require(['@/views/LyricConvert'], resolve)
 const Player = resolve => require(['@/views/Player'], resolve)
 const Join = resolve => require(['@/views/Join'], resolve)
+const Mp3 = resolve => require(['@/views/Mp3'], resolve)
 const Error404 = resolve => require(['@/views/error/Error404'], resolve)
 
 Vue.use(Router)
@@ -44,6 +45,10 @@ let routes = [
     {
         path: '/viewer',
         component: Player
+    },
+    {
+        path: '/mp3',
+        component: Mp3
     },
     {
         path: '*',

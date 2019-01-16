@@ -76,6 +76,12 @@
                                 desc: '',
                                 icon: '/static/img/audio.svg',
                                 to: '/join'
+                            },
+                            {
+                                name: 'Mp3 信息查看',
+                                desc: '',
+                                icon: '/static/img/audio.svg',
+                                to: '/mp3'
                             }
                         ]
                     },
@@ -113,6 +119,3 @@
         }
     }
 </script>
-
-<style scoped>
-</style>

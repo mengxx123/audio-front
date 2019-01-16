@@ -1,27 +1,29 @@
 <template>
-    <my-page title="音频拼接" :page="page">
+    <my-page title="Mp3 信息查看" :page="page">
         <div class="container">
             <form action="http://localhost:1026/net/files" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <input id="file" type="file" name="logo" class="from-control">
                 </div>
-                <div class="tip">仅支持 MP3 格式。生成的链接有效期为 2 天，你可以下载保存，或复制链接分享文件给其他人查看。</div>
-                <ui-raised-button class="btn" label="上传" primary @click="upload" />
-
-                <div v-if="results.length">
-                    <ul>
-                        <li v-for="item in results">{{ item }}</li>
-                    </ul>
-                    <br>
-                    <div class="btns">
-                        <ui-raised-button class="btn" label="生成" secondary @click="make" />
-                        <ui-raised-button class="btn" label="复制链接" :data-clipboard-text="result" />
-                        <ui-raised-button class="btn" label="生成二维码" @click="qrcode" />
-                    </div>
-                    <div v-if="result">
-                        {{ result }}
-                    </div>
-                    <img class="qrcode" :src="qrcodeSrc" v-if="qrcodeSrc">
+                <div class="tip">仅支持 MP3 格式。</div>
+                <ui-raised-button class="btn" label="查看" primary @click="upload" />
+                <div v-if="result">
+                    <ui-article>
+                        <table>
+                            <tr>
+                                <th>标题（title）</th>
+                                <td>{{ result.title }}</td>
+                            </tr>
+                            <tr>
+                                <th>作者（artist）</th>
+                                <td>{{ result.tags.artist }}</td>
+                            </tr>
+                            <tr>
+                                <th>专辑（album）</th>
+                                <td>{{ result.tags.album }}</td>
+                            </tr>
+                        </table>
+                    </ui-article>
                 </div>
             </form>
         </div>
@@ -32,6 +34,16 @@
     /* eslint-disable */
     import {domain} from '@/config'
     const ClipboardJS = window.ClipboardJS
+    const jsmediatags = require("jsmediatags")
+
+    // jsmediatags.read("https://nodeapi.yunser.com/img/1546245801991.mp3", {
+    //     onSuccess: function(tag) {
+    //         console.log('onSuccess', tag);
+    //     },
+    //     onError: function(error) {
+    //         console.log('error', error);
+    //     }
+    // })
 
     export default {
         data () {
@@ -78,21 +90,19 @@
                 })
             },
             upload() {
-                let file = document.getElementById('file').files[0];           
-                let param = new FormData(); //创建form对象
-                param.append('logo',file,file.name);//通过append向form对象添加数据
-                param.append('chunk','0');//添加form表单中其他数据
-                console.log(param.get('file')); //FormData私有类对象，访问不到，可以通过get判断值是否传进去
-                let config = {
-                    headers:{'Content-Type':'multipart/form-data'}
-                };  //添加请求头
-                this.$http.post(domain.api2 + '/net/files',param,config)
-                    .then(response=>{
-                        console.log(response.data);
-                        let result = domain.api2 + response.data.data.path.replace('public', '')
-                        this.results.push(result)
-                        this.results2.push(response.data.data.path.replace('public', ''))
-                    })        
+                let file = document.getElementById('file').files[0]
+                jsmediatags.read(file, {
+                    onSuccess: tag => {
+                        console.log('onSuccess', tag);
+                        this.result = {
+                            tags: tag.tags,
+                            title: tag.tags.title
+                        }
+                    },
+                    onError: function(error) {
+                        console.log('error', error);
+                    }
+                })
             },
             make() {
                 this.$http.get(domain.api2 + '/audio/join?url=' + encodeURIComponent(this.results2.join(',')))
