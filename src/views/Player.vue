@@ -1,6 +1,6 @@
 <template>
     <my-page title="播放器">
-        <div class="container">
+        <div class="common-container container">
             <div class="video-box">
                 <!--  autoplay controls  -->
                 <audio id="audio"  >
@@ -217,7 +217,6 @@
 
 <style lang="scss" scoped>
 .container {
-    margin: 0 auto;
     max-width: 400px;
 }
 .video-box {

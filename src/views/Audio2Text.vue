@@ -1,18 +1,20 @@
 <template>
     <my-page title="音频转文字">
-        <form action="http://localhost:1026/net/files" method="post" enctype="multipart/form-data">
-            <div class="form-group">
-                <input id="file" type="file" name="logo" class="from-control">
-            </div>
-            <div class="btns">
-                <ui-raised-button class="btn" label="识别" primary @click="upload" />
-            </div>
-            <div class="ui-loading" v-if="loading">
-                <ui-circular-progress :size="24"/>
-            </div>
+        <div class="common-container container">
+            <form action="http://localhost:1026/net/files" method="post" enctype="multipart/form-data">
+                <div class="form-group">
+                    <input id="file" type="file" name="logo" class="from-control">
+                </div>
+                <div class="btns">
+                    <ui-raised-button class="btn" label="识别" primary @click="upload" />
+                </div>
+                <div class="ui-loading" v-if="loading">
+                    <ui-circular-progress :size="24"/>
+                </div>
 
-            <pre v-if="result">{{ result }}</pre>
-        </form>
+                <pre v-if="result">{{ result }}</pre>
+            </form>
+        </div>
     </my-page>
 </template>
 

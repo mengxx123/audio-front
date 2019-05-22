@@ -1,6 +1,6 @@
 <template>
     <my-page title="Mp3 信息查看" :page="page">
-        <div class="container">
+        <div class="common-container container">
             <form action="http://localhost:1026/net/files" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <input id="file" type="file" name="logo" class="from-control">
@@ -145,6 +145,5 @@
     }
     .container {
         max-width: 800px;
-        margin: 0 auto;
     }
 </style>
